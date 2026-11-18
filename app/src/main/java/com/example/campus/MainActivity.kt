@@ -1,5 +1,6 @@
 package com.example.campus
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -206,13 +207,39 @@ fun EventDetailScreen(
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, name = "Liste - Clair")
 @Composable
-fun EventCardFullPreview() {
+fun EventListScreenLightPreview() {
     CampusTheme {
-        EventCard(
-            event = Event("2", "Brexit", "Politique", "Gymnase", 0, "Table ronde autour du Brexit."),
-            onClick = {},
+        EventListScreen(events = sampleEvents)
+    }
+}
+
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, name = "Liste - Sombre")
+@Composable
+fun EventListScreenDarkPreview() {
+    CampusTheme {
+        EventListScreen(events = sampleEvents)
+    }
+}
+
+@Preview(showBackground = true, name = "Détail - Clair")
+@Composable
+fun EventDetailScreenLightPreview() {
+    CampusTheme {
+        EventDetailScreen(
+            event = sampleEvents[0],
+            onBook = {}
+        )
+    }
+}
+
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, name = "Détail - Sombre")
+@Composable
+fun EventDetailScreenDarkPreview() {
+    CampusTheme {
+        EventDetailScreen(
+            event = sampleEvents[0],
             onBook = {}
         )
     }
