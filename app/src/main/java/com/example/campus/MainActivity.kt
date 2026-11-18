@@ -1,6 +1,7 @@
 package com.example.campus
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -24,6 +25,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.campus.ui.theme.CampusTheme
 
+private const val TAG = "Campus"
+
 data class Event(
     val id: String,
     val title: String,
@@ -31,7 +34,6 @@ data class Event(
     val location: String?,
     val capacity: Int
 )
-
 
 val sampleEvents = listOf(
     Event("1", "Conférence Ia", "Tech", "Amphi A", 45),
@@ -98,8 +100,8 @@ fun EventListScreen(events: List<Event>) {
             items(events, key = { it.id }) { event ->
                 EventCard(
                     event = event,
-                    onClick = {},
-                    onBook = {}
+                    onClick = { Log.d(TAG, "Clic sur ${event.title}") },
+                    onBook = { Log.d(TAG, "Réservation pour ${event.title}") }
                 )
             }
         }
@@ -110,22 +112,10 @@ fun EventListScreen(events: List<Event>) {
 @Composable
 fun EventCardFullPreview() {
     CampusTheme {
-        EventListScreen(events = sampleEvents)
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    CampusTheme {
-        Greeting("Android")
+        EventCard(
+            event = Event("2", "Brexit", "Politique", "Gymnase", 0),
+            onClick = {},
+            onBook = {}
+        )
     }
 }
