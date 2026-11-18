@@ -24,6 +24,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.campus.ui.theme.CampusTheme
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.material3.FilterChip
 
 private const val TAG = "Campus"
 
@@ -87,6 +89,8 @@ fun EventCard(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EventListScreen(events: List<Event>) {
+    val categories = listOf("Toutes", "Tech", "Politique", "Culture", "Détente")
+
     Scaffold(
         topBar = {
             TopAppBar(title = { Text("Campus") })
@@ -97,6 +101,20 @@ fun EventListScreen(events: List<Event>) {
             verticalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier.padding(horizontal = 16.dp)
         ) {
+            item {
+                LazyRow(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    items(categories) { category ->
+                        FilterChip(
+                            selected = category == "Toutes",
+                            onClick = { Log.d(TAG, "Catégorie : $category") },
+                            label = { Text(category) }
+                        )
+                    }
+                }
+            }
+
             items(events, key = { it.id }) { event ->
                 EventCard(
                     event = event,
