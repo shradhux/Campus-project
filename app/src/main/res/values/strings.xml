@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Campus</string>
+    <string name="location_tbd">Lieu à confirmer</string>
+    <string name="status_full">Complet</string>
+    <string name="action_book">Réserver</string>
+    <string name="category_all">Toutes</string>
+    <string name="category_tech">Tech</string>
+    <string name="category_politics">Politique</string>
+    <string name="category_culture">Culture</string>
+    <string name="category_relax">Détente</string>
+    <plurals name="places_remaining">
+        <item quantity="one">%d place</item>
+        <item quantity="other">%d places</item>
+    </plurals>
 </resources>

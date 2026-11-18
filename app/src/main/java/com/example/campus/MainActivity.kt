@@ -31,6 +31,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.campus.ui.theme.CampusTheme
@@ -77,18 +79,24 @@ fun EventCard(
         Column(modifier = Modifier.padding(16.dp)) {
             Text(text = event.title)
             Text(text = event.category)
-            Text(text = event.location ?: "Lieu à confirmer")
+            Text(text = event.location ?: stringResource(R.string.location_tbd))
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(text = if (event.capacity == 0) "Complet" else "${event.capacity} places")
+                Text(
+                    text = if (event.capacity == 0) {
+                        stringResource(R.string.status_full)
+                    } else {
+                        pluralStringResource(R.plurals.places_remaining, event.capacity, event.capacity)
+                    }
+                )
                 Button(
                     onClick = onBook,
                     enabled = event.capacity > 0
                 ) {
-                    Text("Réserver")
+                    Text(stringResource(R.string.action_book))
                 }
             }
         }
@@ -98,11 +106,18 @@ fun EventCard(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EventListScreen(events: List<Event>) {
-    val categories = listOf("Toutes", "Tech", "Politique", "Culture", "Détente")
+    val allLabel = stringResource(R.string.category_all)
+    val categories = listOf(
+        allLabel,
+        stringResource(R.string.category_tech),
+        stringResource(R.string.category_politics),
+        stringResource(R.string.category_culture),
+        stringResource(R.string.category_relax)
+    )
 
     Scaffold(
         topBar = {
-            TopAppBar(title = { Text("Campus") })
+            TopAppBar(title = { Text(stringResource(R.string.app_name)) })
         }
     ) { innerPadding ->
         LazyColumn(
@@ -116,7 +131,7 @@ fun EventListScreen(events: List<Event>) {
                 ) {
                     items(categories) { category ->
                         FilterChip(
-                            selected = category == "Toutes",
+                            selected = category == allLabel,
                             onClick = { Log.d(TAG, "Catégorie : $category") },
                             label = { Text(category) }
                         )
@@ -165,7 +180,7 @@ fun EventDetailScreen(
             Spacer(modifier = Modifier.height(16.dp))
             Text(text = event.title)
             Text(text = event.category)
-            Text(text = event.location ?: "Lieu à confirmer")
+            Text(text = event.location ?: stringResource(R.string.location_tbd))
             Spacer(modifier = Modifier.height(12.dp))
             Text(
                 text = event.description,
@@ -179,7 +194,13 @@ fun EventDetailScreen(
                 enabled = event.capacity > 0,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text(if (event.capacity == 0) "Complet" else "Réserver")
+                Text(
+                    if (event.capacity == 0) {
+                        stringResource(R.string.status_full)
+                    } else {
+                        stringResource(R.string.action_book)
+                    }
+                )
             }
         }
     }
