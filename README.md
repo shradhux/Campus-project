@@ -4,6 +4,10 @@ FIP2
 Etapes d'affichage de l'application : 
 
 Partie 1
+
+Question 5 (logcat) : <img width="1068" height="250" alt="image" src="https://github.com/user-attachments/assets/e6885775-da37-425a-ad36-28b1dce5c5b7" />
+
+
 Affichage complet : 
 <img width="179" height="241" alt="image" src="https://github.com/user-attachments/assets/1a37a49f-f1bb-4618-b900-25619f231a14" />
 
